@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from . import data_parser  # Импортируйте ваш парсер
+from . import data_parser
 from . import scoreboard_parser
 
 
@@ -7,9 +7,18 @@ def tennis_view(request):
     live_events = data_parser.live_tennis_data()
     highlights = data_parser.highlights_data()
 
+    scoreboards = {
+        '1',
+        '2',
+        '3',
+        '4',
+        '5'
+    }
+
     context = {
         'live_events': live_events,
         'highlights': highlights,
+        'scoreboards': scoreboards
     }
 
     return render(request, "tennis.html", context)
