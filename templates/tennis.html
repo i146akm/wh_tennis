@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/tennis.css' %}">
+    <title>Tennis</title>
+</head>
+<body>
+    <div class="container">
+        <ul class="in-play">
+            {% for i in live_events %}
+                <li class="event">
+                    <div class="live">
+                        <span>•LIVE</span>
+                    </div>
+                    <div class="title_parent">
+                        <a href="#" class="title">{{ i.title }}</a>
+                    </div>
+                    <div class="score">
+                        <div class="score_left">
+                            <span>{{i.score.0.0}}</span>
+                            <span>{{i.score.0.1}}</span>
+                        </div>
+                        <div class="score_right">
+                            <span>{{i.score.1.0}}</span>
+                            <span>{{i.score.1.1}}</span>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button>{{ i.btn_home }}</button>
+                        <button>{{ i.btn_away }}</button>
+                    </div>
+                    <div class="bets-counter">
+                        <div class="span">{{ i.bets_counter }}</div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+<!--        <ul>-->
+<!--            {% for i in highlights %}-->
+<!--                <li class="event">-->
+<!--                    <div class="title_parent">-->
+<!--                        <span class="title">{{ i.title }}</span>-->
+<!--                    </div>-->
+<!--                    <div class="buttons">-->
+<!--                        <button>{{ i.btn_home }}</button>-->
+<!--                        <button>{{ i.btn_away }}</button>-->
+<!--                    </div>-->
+<!--                    <div class="bets-counter">-->
+<!--                        <div class="span">{{ i.bets_counter }}</div>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--            {% endfor %}-->
+<!--        </ul>-->
+    </div>
+    <div id="scoreboard_container">
+        <button id="close">⛌</button>
+    </div>
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>
