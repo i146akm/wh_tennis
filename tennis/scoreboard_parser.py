@@ -18,6 +18,7 @@ def get_scoreboard_html(url):
                 try:
                     element = frame.locator("#scoreboard")
                     if element.is_visible():
+                        element.locator('._commentary').click()
                         return element.inner_html()
                 except Exception:
                     continue

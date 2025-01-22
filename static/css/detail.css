@@ -156,6 +156,10 @@ table .results.win {
   transition: width 0.3s ease;
 }
 
+#bottomContainer {
+  display: none !important;
+}
+
 #toolPanel {
   display: flex;
   justify-content: space-around;
