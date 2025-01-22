@@ -2,13 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-	{% load static %}
-	<link rel="stylesheet" href="{% static 'css/detail.css'%}">
     <title>Title</title>
 </head>
 <body>
-	<section id="scoreboard_container">
-		{{ parsed_html|safe}}
+    <section id="scoreboard_parent">
+ 		{{ parsed_html|safe}}
     </section>
 </body>
 </html>

@@ -39,22 +39,23 @@
                 </tr>
             {% endfor %}
         </table>
-<!--        <ul>-->
-<!--            {% for i in highlights %}-->
-<!--                <li class="event">-->
-<!--                    <div class="title_parent">-->
-<!--                        <span class="title">{{ i.title }}</span>-->
-<!--                    </div>-->
-<!--                    <div class="buttons">-->
-<!--                        <button>{{ i.btn_home }}</button>-->
-<!--                        <button>{{ i.btn_away }}</button>-->
-<!--                    </div>-->
-<!--                    <div class="bets-counter">-->
-<!--                        <div class="span">{{ i.bets_counter }}</div>-->
-<!--                    </div>-->
-<!--                </li>-->
-<!--            {% endfor %}-->
-<!--        </ul>-->
+        <table>
+            {% for i in highlights %}
+                <tr>
+                    <td>{{ i.start_time }}</td>
+                    <td>
+                        <a href="#" class="title" >{{ i.title }} </a>
+                    </td>
+                    <td>
+                        <button>{{ i.btn_home }}</button>
+                    </td>
+                    <td>
+                        <button>{{ i.btn_away }}</button>
+                    </td>
+                    <td>{{ i.bets_counter }}</td>
+                </tr>
+            {% endfor %}
+        </table>
     </div>
     <script src="{% static 'js/app.js' %}"></script>
 </body>

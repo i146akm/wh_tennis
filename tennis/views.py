@@ -6,11 +6,11 @@ from tennis.scoreboard_parser import get_scoreboard_html
 
 def tennis_view(request):
     live_events = data_parser.live_tennis_data()
-    # highlights = data_parser.highlights_data()
+    highlights = data_parser.highlights_data()
 
     context = {
         'live_events': live_events,
-        'highlights': 'highlights',
+        'highlights': highlights,
     }
 
     return render(request, "tennis.html", context)

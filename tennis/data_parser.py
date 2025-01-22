@@ -60,6 +60,7 @@ def highlights_data():
 
             if title_elem and len(btmarket_selection) >= 2:
                 data.append({
+                    'start_time': event.query_selector('.eventStartTime').inner_text(),
                     'title': title_elem.inner_text(),
                     'btn_home': btmarket_selection[0].query_selector('.betbutton__odds').inner_text(),
                     'btn_away': btmarket_selection[1].query_selector('.betbutton__odds').inner_text(),
