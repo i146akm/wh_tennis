@@ -2,57 +2,81 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Verdana', sans-serif;
-}
-
-@font-face {
-    font-family: 'НазваниеШрифта';
-    src: url('fonts/Verdana.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
 }
 
 body {
-    background-color: #EBF1FF;
+    font-family: 'Roboto', sans-serif;
+    background-color: #1C1B20;
+    color: #E8E8E8;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
-    max-width: 1246px;
-    margin: 0 auto;
-    padding: 0 20px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #2A2930;
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
 }
 
 table {
     width: 100%;
-    margin: 20px 0;
+    border-collapse: collapse;
+    margin-bottom: 20px;
 }
 
-tr {
-    border-bottom: 1px solid #000;
+table th, table td {
+    /*text-align: center;*/
+    padding: 12px;
+    border-bottom: 1px solid #444247;
+}
+
+table tr {
+    transition: background-color 0.3s ease;
+}
+
+table tr:hover {
+    background-color: #333138;
+}
+
+.title {
+    color: #A8DDA8;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.title:hover {
+    text-decoration: underline;
+}
+
+.score {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2F2E34;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.score_left, .score_right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 button {
-    width: 100%;
-}
-
-#scoreboard_container {
-    top: 0;
-    left: 0;
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    background-color: rgba(0,0,0,0.8);
-    display: none;
-}
-
-#close {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    background: none;
+    padding: 10px 20px;
     border: none;
+    background-color: #444247;
+    color: #E8E8E8;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 35px;
-    color: #fff;
-    user-select: none;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #A8DDA8;
+    color: #1C1B20;
 }
