@@ -1,34 +1,23 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from . import data_parser
-from . import scoreboard_parser
+from tennis.link_parser import find_link_with_text
+from tennis.scoreboard_parser import get_scoreboard_html
 
 
 def tennis_view(request):
     live_events = data_parser.live_tennis_data()
-    highlights = data_parser.highlights_data()
-
-    scoreboards = {
-        '1',
-        '2',
-        '3',
-        '4',
-        '5'
-    }
+    # highlights = data_parser.highlights_data()
 
     context = {
         'live_events': live_events,
-        'highlights': highlights,
-        'scoreboards': scoreboards
+        'highlights': 'highlights',
     }
 
     return render(request, "tennis.html", context)
 
 
-def detail_view(request):
-    element = scoreboard_parser.get_scoreboard_html('https://sports.williamhill.com/betting/en-gb/tennis/OB_EV34282471/julia-adams-vs-emma-wilson')
-
-    context = {
-        'element': element,
-    }
-
-    return render(request, "detail.html", context)
+def detail_view(request, id):
+    if request.method == 'GET':
+        for i in data_parser.live_tennis_data():
+            if i['id'] == id:
+                return render(request, 'detail.html', context={'parsed_html': get_scoreboard_html(find_link_with_text(i['title']))})

@@ -10,35 +10,35 @@
 </head>
 <body>
     <div class="container">
-        <ul class="in-play">
+        <table>
             {% for i in live_events %}
-                <li class="event">
-                    <div class="live">
-                        <span>•LIVE</span>
-                    </div>
-                    <div class="title_parent">
-                        <a href="#" class="title">{{ i.title }}</a>
-                    </div>
-                    <div class="score">
-                        <div class="score_left">
-                            <span>{{i.score.0.0}}</span>
-                            <span>{{i.score.0.1}}</span>
+                <tr>
+                    <td>•LIVE</td>
+                    <td>
+                        <a href="/event-{{i.id}}/" class="title" detail_url="{{ i.detail_url }}" target="_blank">{{ i.title }} </a>
+                    </td>
+                    <td>
+                        <div class="score">
+                            <div class="score_left">
+                                <span>{{i.score.0.0}}</span>
+                                <span>{{i.score.1.0}}</span>
+                            </div>
+                            <div class="score_right">
+                                <span>{{i.score.0.1}}</span>
+                                <span>{{i.score.1.1}}</span>
+                            </div>
                         </div>
-                        <div class="score_right">
-                            <span>{{i.score.1.0}}</span>
-                            <span>{{i.score.1.1}}</span>
-                        </div>
-                    </div>
-                    <div class="buttons">
+                    </td>
+                    <td>
                         <button>{{ i.btn_home }}</button>
+                    </td>
+                    <td>
                         <button>{{ i.btn_away }}</button>
-                    </div>
-                    <div class="bets-counter">
-                        <div class="span">{{ i.bets_counter }}</div>
-                    </div>
-                </li>
+                    </td>
+                    <td>{{ i.bets_counter }}</td>
+                </tr>
             {% endfor %}
-        </ul>
+        </table>
 <!--        <ul>-->
 <!--            {% for i in highlights %}-->
 <!--                <li class="event">-->
@@ -55,9 +55,6 @@
 <!--                </li>-->
 <!--            {% endfor %}-->
 <!--        </ul>-->
-    </div>
-    <div id="scoreboard_container">
-        <button id="close">⛌</button>
     </div>
     <script src="{% static 'js/app.js' %}"></script>
 </body>

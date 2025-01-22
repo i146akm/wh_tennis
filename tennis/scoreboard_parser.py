@@ -1,4 +1,5 @@
 from playwright.sync_api import sync_playwright
+from tennis.link_parser import find_link_with_text
 
 
 def get_scoreboard_html(url):
@@ -34,3 +35,8 @@ def get_scoreboard_html(url):
 
         finally:
             browser.close()  # Закрываем браузер
+
+
+# print(get_scoreboard_html('https://sports.williamhill.com/betting/en-gb/tennis/OB_EV34293348/peter-goldsteiner-vs-vojtech-vales'))
+# print(find_link_with_text('Ben Shelton v Lorenzo Sonego'))
+# print(get_scoreboard_html(find_link_with_text('Ben Shelton v Lorenzo Sonego')))
