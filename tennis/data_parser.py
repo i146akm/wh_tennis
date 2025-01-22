@@ -29,10 +29,7 @@ def live_tennis_data():
                             event_status[1].query_selector('.team-a').inner_text(),
                             event_status[1].query_selector('.team-b').inner_text()
                         ]
-                    ],
-                    'btn_home': btmarket_selection[0].query_selector('.betbutton__odds').inner_text(),
-                    'btn_away': btmarket_selection[1].query_selector('.betbutton__odds').inner_text(),
-                    'bets_counter': event.query_selector('.btmarket__more-bets-counter').inner_text()
+                    ]
                     if event.query_selector('.btmarket__more-bets-counter') else "0"
                 })
 
