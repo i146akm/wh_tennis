@@ -6,27 +6,8 @@ def get_scoreboard_html(url):
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
 
-        try:
-            page.goto(url, timeout=30000)
-            page.wait_for_timeout(3000)
+        page.goto(url, timeout=30000)
+        page.wait_for_timeout(3000)
 
-            element = page.locator("#scoreboard")
-            if element.is_visible():
-                return element.inner_html()
-
-            for frame in page.frames:
-                try:
-                    element = frame.locator("#scoreboard")
-                    if element.is_visible():
-                        element.locator('._commentary').click()
-                        return element.inner_html()
-                except Exception:
-                    continue
-
-            return None
-
-        except Exception:
-            return None
-
-        finally:
-            browser.close()
+        iframe_src = page.locator("iframe").nth(0).get_attribute("src")
+        return iframe_src
