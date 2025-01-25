@@ -7,7 +7,7 @@ def find_link_with_text(text):
         page = browser.new_page()
 
         try:
-            page.goto('https://sports.williamhill.com/betting/en-gb/tennis/', timeout=30000)
+            page.goto('https://sports.williamhill.com/betting/en-gb/in-play/tennis', timeout=30000)
             page.wait_for_selector(f"a:has-text('{text}')", timeout=5000)
 
             link = page.locator(f"a:has-text('{text}')").first

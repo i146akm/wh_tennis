@@ -5,11 +5,8 @@ def live_tennis_data():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
-        page.goto('https://sports.williamhill.com/betting/en-gb/tennis')
-        page.wait_for_selector('#in-play-now', timeout=10000)
-
-        in_play_now = page.query_selector('#in-play-now')
-        live_events = in_play_now.query_selector_all('.event') if in_play_now else []
+        page.goto('https://sports.williamhill.com/betting/en-gb/in-play/tennis')
+        live_events = page.query_selector_all('.event')
 
         data = []
         for event in live_events:

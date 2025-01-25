@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 class IsActive(models.Model):
     class Meta:
@@ -12,5 +13,5 @@ class IsActive(models.Model):
     is_active = models.BooleanField(verbose_name='Статус')
 
     def __str__(self):
-        return f'{self.user} | {'Активный' if self.is_active == True else 'Неактивный'}'
+        return f'{self.user} | {"Активный" if self.is_active == True else "Неактивный"}'
     
