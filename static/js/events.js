@@ -24,8 +24,8 @@ function displayEvents(events) {
     });
 }
 
-// Загружаем события каждые 5 секунд
-setInterval(loadEvents, 5000);
+// Загружаем события каждые 2 секунды
+setInterval(loadEvents, 1000);
 
 // Начальная загрузка событий
 window.onload = loadEvents;

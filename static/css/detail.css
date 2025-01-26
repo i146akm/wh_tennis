@@ -6,6 +6,7 @@
 
 body {
   background-color: #180E2A;
+  color: #fff;
 }
 
 .container {
@@ -13,11 +14,6 @@ body {
   margin: 0 auto;
   padding: 20px;
   height: 100vh;
-}
-
-section {
-  width: 100%;
-  height: 100%;
 }
 
 iframe {
