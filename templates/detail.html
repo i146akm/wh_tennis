@@ -7,10 +7,7 @@
     <title>Детальная информация</title>
 </head>
 <body>
-    <div class="container">
-        <section id="scoreboard_parent">
-            <iframe src="{{ parsed_html }}" frameborder="0"></iframe>
-        </section>
-    </div>
+    <div id="detail-container" data-game-id="{{ game_id }}"></div>
+    <script src="{% static 'js/detail.js' %}"></script>
 </body>
 </html>

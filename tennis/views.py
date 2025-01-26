@@ -1,25 +1,38 @@
-from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from . import data_parser
-from tennis.link_parser import find_link_with_text
-from tennis.scoreboard_parser import get_scoreboard_html
+from django.http import JsonResponse
+from django.shortcuts import render
+import time
+import requests
 
 
-@login_required(login_url='/login')
-def tennis_view(request):
-    live_events = data_parser.live_tennis_data()
-    highlights = data_parser.highlights_data()
+# API для списка событий
+def events_api(request):
+    api_url = "https://bookiesapi.com/api/get.php?login=smarketsup&token=35824-8BSMVjWJPi12T1R&task=livedata&sport=tennis"
+    response = requests.get(api_url)
+    if response.status_code == 200:
+        data = response.json()
+        return JsonResponse({'events': data.get('games_live', [])})
+    else:
+        return JsonResponse({'events': []})
 
-    context = {
-        'live_events': live_events,
-        'highlights': highlights,
-    }
 
-    return render(request, "tennis.html", context=context)
+# API для деталей события
+def event_details_api(request, game_id):
+    while True:
+        api_url = f"https://bookiesapi.com/api/get.php?login=smarketsup&token=35824-8BSMVjWJPi12T1R&task=eventdata&game_id={game_id}"
+        response = requests.get(api_url)
+        if response.status_code == 200:
+            data = response.json()
+            return JsonResponse(data)
+        else:
+            return JsonResponse({'error': 'Не удалось загрузить данные'}, status=500)
+        time.sleep(3)
 
-@login_required(login_url='/login')
-def detail_view(request, id):
-    if request.method == 'GET':
-        for i in data_parser.live_tennis_data():
-            if i['id'] == id:
-                return render(request, 'detail.html', context={'parsed_html': get_scoreboard_html(find_link_with_text(i['title']))})
+
+# Страница списка событий
+def events_list(request):
+    return render(request, 'tennis.html')
+
+
+# Страница деталей события
+def details_view(request, game_id):
+    return render(request, 'detail.html', {'game_id': game_id})

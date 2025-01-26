@@ -10,40 +10,9 @@
 </head>
 <body>
     <div class="container">
-        <table>
-            {% for i in live_events %}
-                <tr>
-                    <td>•LIVE</td>
-                    <td>
-                        <a href="/event-{{i.id}}/" class="title" detail_url="{{ i.detail_url }}" target="_blank">{{ i.title }} </a>
-                    </td>
-                    <td>
-                        <div class="score">
-                            <div class="score_left">
-                                <span>{{i.score.0.0}}</span>
-                                <span>{{i.score.0.1}}</span>
-                            </div>
-                            <div class="score_right">
-                                <span>{{i.score.1.0}}</span>
-                                <span>{{i.score.1.1}}</span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-        <table>
-            {% for i in highlights %}
-                <tr>
-                    <td>{{ i.start_time }}</td>
-                    <td>
-                        <a href="#" class="title" >{{ i.title }} </a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
+        <div id="events-container">Загрузка...</div>
         <button onclick="window.location.pathname = 'logout/'">Logout</button>
     </div>
-    <script src="{% static 'js/app.js' %}"></script>
+    <script src="{% static 'js/events.js' %}"></script>
 </body>
 </html>
