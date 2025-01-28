@@ -1,57 +1,64 @@
-from django.http import JsonResponse
+from django.http import StreamingHttpResponse
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 import requests
-import threading
+import json
 import time
 
 
-def events_api(request):
-    api_url = "https://bookiesapi.com/api/get.php?login=smarketsup&token=35824-8BSMVjWJPi12T1R&task=livedata&sport=tennis"
-    response = requests.get(api_url)
-    if response.status_code == 200:
-        data = response.json()
-        return JsonResponse({'events': data.get('games_live', [])})
-    else:
-        return JsonResponse({'events': []})
-
-
-current_event_details = {}
-
-
-def fetch_event_details_periodically(game_id):
-    global current_event_details
-    while True:
+@login_required(login_url='/login')
+def events_stream(request):
+    def event_generator():
+        api_url = ("https://bookiesapi.com/api/get.php?"
+                   "login=smarketsup&token=35824-8BSMVjWJPi12T1R&"
+                   "task=livedata&"
+                   "sport=tennis")
         try:
-            api_url = f"https://bookiesapi.com/api/get.php?login=smarketsup&token=35824-8BSMVjWJPi12T1R&task=eventdata&game_id={game_id}"
             response = requests.get(api_url)
-
             if response.status_code == 200:
                 data = response.json()
-                current_event_details[game_id] = data
+                events = data.get('games_live', [])
+                yield f"data: {json.dumps(events)}\n\n"
             else:
-                print(f"Ошибка при запросе данных для события {game_id}")
+                yield f"data: {{\"error\": \"Failed to get data. Status code: {response.status_code}\"}}\n\n"
         except Exception as e:
-            print(f"Ошибка при обновлении данных: {e}")
+            yield f"data: {{\"error\": \"{str(e)}\"}}\n\n"
 
-        time.sleep(2)
-
-
-def event_details_api(request, game_id):
-    global current_event_details
-
-    if game_id in current_event_details:
-        return JsonResponse(current_event_details[game_id])
-    else:
-        thread = threading.Thread(target=fetch_event_details_periodically, args=(game_id,))
-        thread.daemon = True
-        thread.start()
-
-        return JsonResponse({'message': 'Данные обновляются... попробуйте позже'}, status=202)
+    response = StreamingHttpResponse(event_generator(), content_type="text/event-stream")
+    response['Cache-Control'] = 'no-cache'
+    return response
 
 
+@login_required(login_url='/login')
+def event_details_stream(request, game_id):
+    def detail_generator():
+        api_url = (f"https://bookiesapi.com/api/get.php?"
+                   f"login=smarketsup&"
+                   f"token=35824-8BSMVjWJPi12T1R&task=eventdata&"
+                   f"game_id={game_id}")
+        while True:
+            try:
+                response = requests.get(api_url)
+                if response.status_code == 200:
+                    data = response.json()
+                    yield f"data: {json.dumps(data)}\n\n"
+                else:
+                    yield (f"data: {{\"error\": \"Failed to get data for game_id={game_id}. "
+                           f"Status code: {response.status_code}\"}}\n\n")
+            except Exception as e:
+                yield f"data: {{\"error\": \"{str(e)}\"}}\n\n"
+            time.sleep(0.5)
+
+    response = StreamingHttpResponse(detail_generator(), content_type="text/event-stream")
+    response['Cache-Control'] = 'no-cache'
+    return response
+
+
+@login_required(login_url='/login')
 def events_list(request):
     return render(request, 'tennis.html')
 
 
+@login_required(login_url='/login')
 def details_view(request, game_id):
     return render(request, 'detail.html', {'game_id': game_id})

@@ -1,82 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat";
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #1C1B20;
-    color: #E8E8E8;
-    margin: 0;
-    padding: 0;
+  color: #28272D;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: #2A2930;
-    border-radius: 15px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+main {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  gap: 15px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+.navbar {
+  border: 1px solid #28272D;
+  min-height: 100vh;
+  flex-grow: 1;
+  background-color: #fff;
+}
+.navbar ul {
+  padding: 0 0 0 20px;
+}
+.navbar ul li {
+  list-style: none;
+  text-transform: capitalize;
+}
+.navbar ul li a {
+  display: inline-block;
+  text-decoration: none;
+  color: #28272D;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  transition: 0.2s;
+  border-bottom: 1px solid #E7E9EB;
+}
+.navbar ul li a:hover {
+  background-color: #F1F1F1;
+}
+.navbar ul li:last-child a {
+  border: none;
 }
 
-table th, table td {
-    /*text-align: center;*/
-    padding: 12px;
-    border-bottom: 1px solid #444247;
+#navbar_active > a {
+  background-color: #F1F1F1;
 }
 
-table tr {
-    transition: background-color 0.3s ease;
+#events-container {
+  flex-grow: 5.5;
 }
-
-table tr:hover {
-    background-color: #333138;
+#events-container table {
+  width: 100%;
+  border-collapse: collapse;
 }
-
-.title {
-    color: #A8DDA8;
-    text-decoration: none;
-    font-weight: bold;
+#events-container table tr a, #events-container table tr .competition {
+  color: #85B9CD;
+  text-decoration: none;
 }
-
-.title:hover {
-    text-decoration: underline;
+#events-container table tr th {
+  font-size: 17px;
 }
-
-.score {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #2F2E34;
-    border-radius: 10px;
-    padding: 10px;
+#events-container table tr a:hover {
+  text-decoration: underline;
 }
-
-.score_left, .score_right {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#events-container table tr th, #events-container table tr td {
+  padding: 15px 0;
+  border-bottom: 1px solid #E7E9EB;
 }
-
-button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #444247;
-    color: #E8E8E8;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+#events-container table tr th {
+  background-color: #EBEBF5;
 }
-
-button:hover {
-    background-color: #A8DDA8;
-    color: #1C1B20;
+#events-container table tr th:nth-child(2), #events-container table tr th:nth-child(3) {
+  text-align: left;
 }
+#events-container table tr .liveNote, #events-container table tr .score {
+  text-align: center;
+}
+#events-container table tr .liveNote {
+  color: #DC143C;
+}
+#events-container table tr .liveNote::before {
+  content: "• ";
+  color: #DC143C;
+}
+#events-container table .eventsItem {
+  background-color: #F8F7FC;
+}
+#events-container table .eventsItem:nth-child(2n) {
+  background-color: #fff;
+}/*# sourceMappingURL=style.css.map */

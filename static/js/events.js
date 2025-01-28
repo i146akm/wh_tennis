@@ -1,31 +1,31 @@
-async function loadEvents() {
-    try {
-        const response = await fetch('/api/events/');
-        const data = await response.json();
-        displayEvents(data.events);
-    } catch (error) {
-        console.error('Ошибка загрузки событий:', error);
-    }
+function loadEvents() {
+    const eventSource = new EventSource('/sse/events/');
+
+    eventSource.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        displayEvents(data);
+    };
+
+    eventSource.onerror = function(event) {
+        console.error("Ошибка SSE:", event);
+    };
 }
 
-// Отображаем события
 function displayEvents(events) {
-    const container = document.getElementById('events-container');
-    container.innerHTML = ''; // Очищаем контейнер
+    const container = document.getElementById('events-list').getElementsByTagName('tbody')[0];
+    container.innerHTML = '';
 
     events.forEach(event => {
-        const eventDiv = document.createElement('div');
-        eventDiv.innerHTML = `
-            <p>
+        const eventRow = document.createElement('tr');
+        eventRow.classList.add('eventsItem')
+        eventRow.innerHTML = `
+            <td class="liveNote">LIVE</td>
+            <td class="competition">${event.league.name}</td>
+            <td class="eventName">
                 <a href="/details/${event.game_id}/">${event.home.name} - ${event.away.name}</a>
-                <span>${event.score}</span>
-            </p>`;
-        container.appendChild(eventDiv);
+            </td>
+            <td class="score">${event.score}</td>`;
+        container.appendChild(eventRow);
     });
 }
-
-// Загружаем события каждые 2 секунды
-setInterval(loadEvents, 1000);
-
-// Начальная загрузка событий
 window.onload = loadEvents;

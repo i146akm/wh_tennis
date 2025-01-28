@@ -1,22 +1,76 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: sans-serif;
 }
 
 body {
-  background-color: #180E2A;
-  color: #fff;
+  background-color: #f1f1f1;
 }
 
 .container {
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
-  height: 100vh;
+  max-width: 1200px;
+  padding: 0 30px;
 }
 
-iframe {
-  height: 100%;
-  width: 100%;
+header {
+  background-color: #28272D;
+  color: #fff;
+  padding: 35px 0;
 }
+header h1 {
+  text-align: center;
+}
+header #stats {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 60px;
+  position: relative;
+  margin: 30px 0 0 0;
+}
+header #stats #home p:nth-child(2), header #stats #away p:nth-child(2) {
+  font-size: 45px;
+  font-weight: 600;
+}
+header #stats #home p {
+  text-align: right;
+}
+header #stats #center_stats table {
+  border-collapse: separate;
+  border-spacing: 3px;
+}
+header #stats #center_stats table tr {
+  background-color: #43424A;
+  border-radius: 5px;
+}
+header #stats #center_stats table tr td {
+  padding: 5px;
+  text-align: center;
+}
+header #stats #center_stats table tr td:nth-child(2) {
+  text-align: center;
+  padding: 0 30px;
+}
+
+#commentaries ul li {
+  list-style: none;
+  margin: 30px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+#commentaries ul li .line {
+  height: 1px;
+  flex-grow: 0.4;
+  border-radius: 1px;
+  border-bottom: 1px solid grey;
+}
+#commentaries ul li span:first-child {
+  font-size: 14px;
+  color: grey;
+}/*# sourceMappingURL=style.css.map */

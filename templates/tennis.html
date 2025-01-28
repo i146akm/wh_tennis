@@ -1,18 +1,235 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/tennis.css' %}">
-    <title>Tennis</title>
+    <title>Список событий</title>
 </head>
 <body>
-    <div class="container">
-        <div id="events-container">Загрузка...</div>
-        <button onclick="window.location.pathname = 'logout/'">Logout</button>
-    </div>
+    <main>
+        <nav class="navbar">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span>american football</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>football</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>badminton</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>baseball</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>basketball</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>beach volleyball</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>bowls</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>boxing</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>cricket</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>football</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>darts</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>football</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>futsal</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>football</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>football</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>football</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>football</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>football</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>football</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>football</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>football</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>football</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>football</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>football</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>football</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li id="navbar_active">
+                    <a href="#">
+                        <span>tennis</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>football</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>football</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div id="events-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Start (UTC+3)</th>
+                        <th>Competition</th>
+                        <th>Event</th>
+                        <th>Actual Score</th>
+                    </tr>
+                </thead>
+                <tbody id="events-container">
+
+                </tbody>
+            </table>
+        </div>
+    </main>
     <script src="{% static 'js/events.js' %}"></script>
+{#    <script>#}
+{#        function loadEvents() {#}
+{#            const eventSource = new EventSource('/sse/events/');#}
+{##}
+{#            eventSource.onmessage = function(event) {#}
+{#                const data = JSON.parse(event.data);#}
+{#                displayEvents(data);#}
+{#            };#}
+{##}
+{#            eventSource.onerror = function(event) {#}
+{#                console.error("Ошибка SSE:", event);#}
+{#            };#}
+{#        }#}
+{##}
+{#        function displayEvents(events) {#}
+{#            const container = document.getElementById('events-list').getElementsByTagName('tbody')[0];#}
+{#            container.innerHTML = '';#}
+{##}
+{#            events.forEach(event => {#}
+{#                const eventRow = document.createElement('tr');#}
+{#                eventRow.classList.add('eventsItem')#}
+{#                eventRow.innerHTML = `#}
+{#                    <td class="liveNote">LIVE</td>#}
+{#                    <td class="competition">${event.league.name}</td>#}
+{#                    <td class="eventName">#}
+{#                        <a href="/details/${event.game_id}/">${event.home.name} - ${event.away.name}</a>#}
+{#                    </td>#}
+{#                    <td class="score">${event.score}</td>`;#}
+{#                container.appendChild(eventRow);#}
+{#            });#}
+{#        }#}
+{#        window.onload = loadEvents;#}
+{#    </script>#}
 </body>
 </html>

@@ -1,13 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/detail.css' %}">
-    <title>Детальная информация</title>
+    <title>Подробности события</title>
 </head>
 <body>
-    <div id="detail-container" data-game-id="{{ game_id }}"></div>
-    <script src="{% static 'js/detail.js' %}"></script>
+    <div id="event-details">
+        <header>
+            <div class="container">
+                <h1 id="league_name">LOrem</h1>
+                <div id="stats">
+                    <div id="home">
+                        <p id="home_name"></p>
+                        <p id="home_points"></p>
+                        <p>Home</p>
+                    </div>
+                    <div id="center_stats">
+                        <table>
+                            <tr>
+                                <td id="center__stats-aces-1"></td>
+                                <td>Aces</td>
+                                <td id="center__stats-aces-2"></td>
+                            </tr>
+                            <tr>
+                                <td id="center__stats-df-1"></td>
+                                <td>Double Faults</td>
+                                <td id="center__stats-df-2"></td>
+                            </tr>
+                            <tr>
+                                <td id="center__stats-bpc-1"></td>
+                                <td>Break Point Conversions</td>
+                                <td id="center__stats-bpc-2"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="away">
+                        <p id="away_name"></p>
+                        <p id="away_points">
+
+                        </p>
+                        <p>Away</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="container">
+            <div id="commentaries">
+                <ul id="commentaries_ul">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+    function loadEventDetails() {
+        const gameId = "{{ game_id }}";
+        const eventSource = new EventSource(`/sse/details/${gameId}/`);
+
+        eventSource.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            displayEventDetails(data);
+        };
+
+        eventSource.onerror = function(event) {
+            console.error("Ошибка SSE:", event);
+        };
+    }
+
+    function displayEventDetails(data) {
+        const container = document.getElementById('event-details');
+        document.querySelector('#league_name').textContent = data.results[0].league.name;
+        document.querySelector('#home_name').textContent = data.results[0].home.name;
+        document.querySelector('#away_name').textContent = data.results[0].away.name;
+        document.querySelector('#center__stats-aces-1').textContent = data.results[0].stats.aces[0];
+        document.querySelector('#center__stats-aces-2').textContent = data.results[0].stats.aces[1];
+        document.querySelector('#center__stats-df-1').textContent = data.results[0].stats.double_faults[0];
+        document.querySelector('#center__stats-df-2').textContent = data.results[0].stats.double_faults[1];
+        document.querySelector('#center__stats-bpc-1').textContent = data.results[0].stats.break_point_conversions[0]+'%';
+        document.querySelector('#center__stats-bpc-2').textContent = data.results[0].stats.break_point_conversions[1]+'%';
+
+        document.querySelector('#home_points').textContent = data.results[0].points.split('-')[0];
+        document.querySelector('#away_points').textContent = data.results[0].points.split('-')[1];
+
+        const commentariesUl = document.querySelector('#commentaries_ul');
+        commentariesUl.innerHTML = '';
+        data.results[0].events.reverse().forEach(event => {
+            const li = document.createElement('li');
+
+            li.innerHTML = `
+            <span>Event ID: ${event.id}</span>
+            <div class="line"></div>
+            <span>${event.text}</span>
+            `;
+            commentariesUl.appendChild(li);
+        });
+    }
+
+    window.onload = loadEventDetails;
+</script>
 </body>
 </html>
