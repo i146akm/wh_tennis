@@ -91,73 +91,85 @@
                 </li>
                 <li>
                     <a href="#">
-                        <span>football</span>
+                        <span>gaelic football</span>
                         <span>&#129122;</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <span>football</span>
+                        <span>handball</span>
                         <span>&#129122;</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <span>football</span>
+                        <span>hockey</span>
                         <span>&#129122;</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <span>football</span>
+                        <span>hurling</span>
                         <span>&#129122;</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <span>football</span>
+                        <span>ice hockey</span>
                         <span>&#129122;</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <span>football</span>
+                        <span>martial arts</span>
                         <span>&#129122;</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <span>football</span>
+                        <span>motor sport</span>
                         <span>&#129122;</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <span>football</span>
+                        <span>pickleball</span>
                         <span>&#129122;</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <span>football</span>
+                        <span>pool</span>
                         <span>&#129122;</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <span>football</span>
+                        <span>rugby league</span>
                         <span>&#129122;</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <span>football</span>
+                        <span>rugby union</span>
                         <span>&#129122;</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <span>football</span>
+                        <span>snooker</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>squash</span>
+                        <span>&#129122;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>table tennis</span>
                         <span>&#129122;</span>
                     </a>
                 </li>
@@ -169,13 +181,13 @@
                 </li>
                 <li>
                     <a href="#">
-                        <span>football</span>
+                        <span>volleyball</span>
                         <span>&#129122;</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <span>football</span>
+                        <span>water polo</span>
                         <span>&#129122;</span>
                     </a>
                 </li>
@@ -191,45 +203,45 @@
                         <th>Actual Score</th>
                     </tr>
                 </thead>
-                <tbody id="events-container">
+                <tbody id="events-list">
 
                 </tbody>
             </table>
         </div>
     </main>
-    <script src="{% static 'js/events.js' %}"></script>
-{#    <script>#}
-{#        function loadEvents() {#}
-{#            const eventSource = new EventSource('/sse/events/');#}
-{##}
-{#            eventSource.onmessage = function(event) {#}
-{#                const data = JSON.parse(event.data);#}
-{#                displayEvents(data);#}
-{#            };#}
-{##}
-{#            eventSource.onerror = function(event) {#}
-{#                console.error("Ошибка SSE:", event);#}
-{#            };#}
-{#        }#}
-{##}
-{#        function displayEvents(events) {#}
-{#            const container = document.getElementById('events-list').getElementsByTagName('tbody')[0];#}
-{#            container.innerHTML = '';#}
-{##}
-{#            events.forEach(event => {#}
-{#                const eventRow = document.createElement('tr');#}
-{#                eventRow.classList.add('eventsItem')#}
-{#                eventRow.innerHTML = `#}
-{#                    <td class="liveNote">LIVE</td>#}
-{#                    <td class="competition">${event.league.name}</td>#}
-{#                    <td class="eventName">#}
-{#                        <a href="/details/${event.game_id}/">${event.home.name} - ${event.away.name}</a>#}
-{#                    </td>#}
-{#                    <td class="score">${event.score}</td>`;#}
-{#                container.appendChild(eventRow);#}
-{#            });#}
-{#        }#}
-{#        window.onload = loadEvents;#}
-{#    </script>#}
+{#    <script src="{% static 'js/events.js' %}"></script>#}
+    <script>
+        function loadEvents() {
+            const eventSource = new EventSource('/sse/events/');
+
+            eventSource.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                displayEvents(data);
+            };
+
+            eventSource.onerror = function(event) {
+                console.error("Ошибка SSE:", event);
+            };
+        }
+
+        function displayEvents(events) {
+            const container = document.getElementById('events-list');
+            container.innerHTML = '';
+
+            events.forEach(event => {
+                const eventRow = document.createElement('tr');
+                eventRow.classList.add('eventsItem')
+                eventRow.innerHTML = `
+                    <td class="liveNote">LIVE</td>
+                    <td class="competition">${event.league.name}</td>
+                    <td class="eventName">
+                        <a href="/details/${event.game_id}/">${event.home.name} - ${event.away.name}</a>
+                    </td>
+                    <td class="score">${event.score}</td>`;
+                container.appendChild(eventRow);
+            });
+        }
+        window.onload = loadEvents;
+    </script>
 </body>
 </html>

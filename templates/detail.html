@@ -72,22 +72,22 @@
 
     function displayEventDetails(data) {
         const container = document.getElementById('event-details');
-        document.querySelector('#league_name').textContent = data.results[0].league.name;
-        document.querySelector('#home_name').textContent = data.results[0].home.name;
-        document.querySelector('#away_name').textContent = data.results[0].away.name;
-        document.querySelector('#center__stats-aces-1').textContent = data.results[0].stats.aces[0];
-        document.querySelector('#center__stats-aces-2').textContent = data.results[0].stats.aces[1];
-        document.querySelector('#center__stats-df-1').textContent = data.results[0].stats.double_faults[0];
-        document.querySelector('#center__stats-df-2').textContent = data.results[0].stats.double_faults[1];
-        document.querySelector('#center__stats-bpc-1').textContent = data.results[0].stats.break_point_conversions[0]+'%';
-        document.querySelector('#center__stats-bpc-2').textContent = data.results[0].stats.break_point_conversions[1]+'%';
+        document.querySelector('#league_name').textContent = data.league_name;
+        document.querySelector('#home_name').textContent = data.home_team;
+        document.querySelector('#away_name').textContent = data.away_team;
+        document.querySelector('#center__stats-aces-1').textContent = data.stats.aces[0];
+        document.querySelector('#center__stats-aces-2').textContent = data.stats.aces[1];
+        document.querySelector('#center__stats-df-1').textContent = data.stats.double_faults[0];
+        document.querySelector('#center__stats-df-2').textContent = data.stats.double_faults[1];
+        document.querySelector('#center__stats-bpc-1').textContent = data.stats.break_point_conversions[0]+'%';
+        document.querySelector('#center__stats-bpc-2').textContent = data.stats.break_point_conversions[1]+'%';
 
-        document.querySelector('#home_points').textContent = data.results[0].points.split('-')[0];
-        document.querySelector('#away_points').textContent = data.results[0].points.split('-')[1];
+        document.querySelector('#home_points').textContent = data.points.split('-')[0];
+        document.querySelector('#away_points').textContent = data.points.split('-')[1];
 
         const commentariesUl = document.querySelector('#commentaries_ul');
         commentariesUl.innerHTML = '';
-        data.results[0].events.reverse().forEach(event => {
+        data.events.reverse().forEach(event => {
             const li = document.createElement('li');
 
             li.innerHTML = `

@@ -15,6 +15,7 @@ main {
   justify-content: space-between;
   padding: 12px;
   gap: 15px;
+  align-items: flex-start;
 }
 
 .navbar {
@@ -71,7 +72,7 @@ main {
   text-decoration: underline;
 }
 #events-container table tr th, #events-container table tr td {
-  padding: 15px 0;
+  padding: 15px 6px;
   border-bottom: 1px solid #E7E9EB;
 }
 #events-container table tr th {
